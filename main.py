@@ -44,9 +44,15 @@ gravatar = Gravatar(app,
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI')
+# Define the SQLAlchemy instance
 db = SQLAlchemy(model_class=Base)
+
+# Configure the Flask app with the database URI
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI')
+
+# Initialize the SQLAlchemy instance with the Flask app
 db.init_app(app)
+
 
 
 # CONFIGURE TABLES

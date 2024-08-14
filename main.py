@@ -26,7 +26,6 @@ Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return db.get_or_404(User, user_id)
@@ -270,13 +269,16 @@ def contact():
 MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
 MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    if request.method == "POST":
-        data = request.form
-        send_email(data["name"], data["email"], data["phone"], data["message"])
-        return render_template("contact.html", msg_sent=True)
-    return render_template("contact.html", msg_sent=False)
+# @app.route("/contact", methods=["GET", "POST"], endpoint="contact")
+# def contact():
+#     # Your contact page logic here
+#     return render_template("contact.html")
+
+@app.route("/contact", methods=["GET", "POST"], endpoint="contact_us")
+def contact_us():
+    # Your contact us page logic here
+    return render_template("contact_us.html")
+
 
 
 def send_email(name, email, phone, message):
@@ -289,3 +291,4 @@ def send_email(name, email, phone, message):
 
 if __name__ == "__main__":
     app.run(debug=False, port=5001)
+
